@@ -25,6 +25,7 @@ public class SwaggerUiConfig {
 				.paths(PathSelectors.any()).build().apiInfo(apiInfo());
 	}
 
+	@SuppressWarnings("rawtypes")
 	private ApiInfo apiInfo() {
 		return new ApiInfo("Minder Redmine REST API ",
 				"Aqui você possui todas as informações necessárias para interagir com essa API.", "v1.0", "",
