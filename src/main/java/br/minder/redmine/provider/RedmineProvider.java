@@ -44,9 +44,14 @@ public class RedmineProvider {
 			trs = page.getElementsByClass("time-entry");
 
 			for (Element tr : trs) {
-				TimeEntryDTO timeEntries = new TimeEntryDTO(tr.getElementsByClass("issue_cf_3").text(),
-						tr.getElementsByClass("spent_on").text(), tr.select("a,user").text(),
-						tr.getElementsByClass("activity").text(), parseToFloat(tr.getElementsByClass("hours").text()));
+				String sprint = tr.getElementsByClass("issue_cf_3").text();
+				int idSprint = 0;
+				if (sprint.contains("Sprint")) {
+					idSprint = Integer.parseInt(sprint.substring(sprint.length() - 2));
+				}
+				TimeEntryDTO timeEntries = new TimeEntryDTO(idSprint, sprint, tr.getElementsByClass("spent_on").text(),
+						tr.select("a,user").text(), tr.getElementsByClass("activity").text(),
+						parseToFloat(tr.getElementsByClass("hours").text()));
 				list.add(timeEntries);
 			}
 		} while (!trs.isEmpty());
@@ -69,9 +74,14 @@ public class RedmineProvider {
 			trs = page.getElementsByClass("time-entry");
 
 			for (Element tr : trs) {
-				TimeEntryDTO timeEntries = new TimeEntryDTO(tr.getElementsByClass("issue_cf_3").text(),
-						tr.getElementsByClass("spent_on").text(), tr.select("a,user").text(),
-						tr.getElementsByClass("activity").text(), parseToFloat(tr.getElementsByClass("hours").text()));
+				String sprint = tr.getElementsByClass("issue_cf_3").text();
+				int idSprint = 0;
+				if (sprint.contains("Sprint")) {
+					idSprint = Integer.parseInt(sprint.substring(sprint.length() - 2));
+				}
+				TimeEntryDTO timeEntries = new TimeEntryDTO(idSprint, sprint, tr.getElementsByClass("spent_on").text(),
+						tr.select("a,user").text(), tr.getElementsByClass("activity").text(),
+						parseToFloat(tr.getElementsByClass("hours").text()));
 				list.add(timeEntries);
 			}
 		} while (!trs.isEmpty());
@@ -120,7 +130,7 @@ public class RedmineProvider {
 		}
 		return activitys;
 	}
-	
+
 	public static List<Membership> getTeamMembersDTO() {
 		List<Membership> members = new ArrayList<Membership>();
 		RedmineManager mgr = RedmineManagerFactory.createWithApiKey(Properties.uriRedmine(), Properties.apiAccessKey());

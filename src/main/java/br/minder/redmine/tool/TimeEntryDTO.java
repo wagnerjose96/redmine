@@ -6,12 +6,14 @@ public class TimeEntryDTO {
 	private String user;
 	private String activity;
 	private Float hours;
+	private int idSprint;
 
 	public TimeEntryDTO() {
 
 	}
 
-	public TimeEntryDTO(String sprint, String date, String user, String activity, Float hours) {
+	public TimeEntryDTO(int idSprint, String sprint, String date, String user, String activity, Float hours) {
+		this.idSprint = idSprint;
 		this.sprint = sprint;
 		this.date = date;
 		this.user = user;
@@ -37,6 +39,10 @@ public class TimeEntryDTO {
 
 	public Float getHours() {
 		return hours;
+	}
+
+	public int getIdSprint() {
+		return idSprint;
 	}
 
 	@Override
